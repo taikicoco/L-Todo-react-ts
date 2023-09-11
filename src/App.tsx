@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -13,7 +13,7 @@ function App() {
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
-        </button>      
+        </button>
       </div>
       <div>
         <h1>taikicoco</h1>
@@ -23,7 +23,7 @@ function App() {
         <h2>products</h2>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
