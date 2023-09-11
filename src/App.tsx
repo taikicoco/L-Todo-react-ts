@@ -1,29 +1,46 @@
 import { useState } from 'react';
-import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0);
+type Todo = {
+  value: string;
+  readonly id: number;
+};
+
+export const App = () => {
+  const [text, setText] = useState('');
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (!text) return;
+
+    const newTodo: Todo = {
+      value: text,
+      id: new Date().getTime(),
+    };
+
+    setTodos((todos) => [newTodo, ...todos]);
+    setText('');
+  };
 
   return (
-    <>
-      <div>
-        <h1>portfolio</h1>
-      </div>
-      <h1>taikicoco</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-      <div>
-        <h1>taikicoco</h1>
-        <h2>インターン経験</h2>
-        <h2>学歴</h2>
-        <h2>スキル</h2>
-        <h2>products</h2>
-      </div>
-    </>
+    <div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <input type="text" value={text} onChange={(e) => handleChange(e)} />
+        <input type="submit" value="追加" onSubmit={handleSubmit} />
+      </form>
+      <ul>
+        {todos.map((todo) => {
+          return <li key={todo.id}>{todo.value}</li>;
+        })}
+      </ul>
+    </div>
   );
-}
-
-export default App;
+};
